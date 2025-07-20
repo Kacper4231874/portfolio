@@ -2,142 +2,1203 @@
 <html lang="pl">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Kacper Mazur - Portfolio</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Kacper Mazur - Technik Informatyk INF.02</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <style>
-    body {
-      font-family: Arial, sans-serif;
-      background: #f4f4f4;
-      color: #333;
-      line-height: 1.6;
+    :root {
+      --bg-primary: #0a192f;
+      --bg-secondary: #f8f9fa;
+      --accent: #64ffda;
+      --accent-dark: #52d1b8;
+      --text-light: #ccd6f6;
+      --text-muted: #8892b0;
+      --text-dark: #0a192f;
+      --card-bg: #ffffff;
+      --transition: 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+      --shadow-sm: 0 2px 5px rgba(10, 25, 47, 0.1);
+      --shadow-md: 0 5px 15px rgba(10, 25, 47, 0.1);
+      --shadow-lg: 0 10px 25px rgba(10, 25, 47, 0.1);
+      --border-radius: 10px;
+    }
+
+    * {
+      box-sizing: border-box;
       margin: 0;
       padding: 0;
     }
 
-    header {
-      background: #1f2937;
-      color: #fff;
-      padding: 20px;
+    body {
+      display: grid;
+      grid-template-columns: minmax(280px, 320px) 1fr;
+      min-height: 100vh;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: var(--bg-secondary);
+      color: var(--text-dark);
+      line-height: 1.6;
+    }
+
+    /* Sidebar Styles */
+    aside {
+      background: var(--bg-primary);
+      color: var(--text-light);
+      padding: 2.5rem 1.8rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 1.8rem;
+      position: sticky;
+      top: 0;
+      height: 100vh;
+      overflow-y: auto;
+    }
+
+    .profile-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 1rem;
       text-align: center;
     }
 
-    .container {
-      max-width: 1000px;
-      margin: auto;
-      padding: 20px;
-      background-color: #fff;
+    .profile-img {
+      width: 160px;
+      height: 160px;
+      border-radius: 50%;
+      border: 3px solid var(--accent);
+      object-fit: cover;
+      transition: all var(--transition);
+      box-shadow: 0 0 20px rgba(100, 255, 218, 0.2);
+      background: linear-gradient(45deg, #0a192f, #1e3a5f);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--accent);
+      font-size: 3rem;
     }
 
-    h2 {
-      color: #1f2937;
-      border-bottom: 2px solid #ccc;
-      padding-bottom: 5px;
+    .profile-name {
+      font-size: 1.6rem;
+      font-weight: 700;
+      margin-bottom: 0.3rem;
+      color: var(--text-light);
     }
 
-    ul {
+    .profile-subtitle {
+      font-size: 0.95rem;
+      color: var(--accent);
+      font-weight: 500;
+      position: relative;
+      padding-bottom: 0.8rem;
+    }
+
+    .profile-subtitle::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 50px;
+      height: 2px;
+      background: var(--accent);
+    }
+
+    .qualification-badge {
+      background: rgba(100, 255, 218, 0.1);
+      color: var(--accent);
+      padding: 0.5rem 1rem;
+      border-radius: 20px;
+      font-size: 0.85rem;
+      margin-top: 0.5rem;
+      border: 1px solid var(--accent);
+      font-weight: 500;
+    }
+
+    .sidebar-section {
+      width: 100%;
+      margin-top: 0.5rem;
+    }
+
+    .section-title {
+      font-size: 1.1rem;
+      font-weight: 600;
+      margin-bottom: 1.2rem;
+      color: var(--text-light);
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      letter-spacing: 0.5px;
+    }
+
+    .section-title i {
+      color: var(--accent);
+      font-size: 1rem;
+    }
+
+    .contact-list, .skills-list {
       list-style: none;
       padding-left: 0;
     }
 
-    li {
-      margin-bottom: 10px;
+    .contact-item, .skill-item {
+      margin-bottom: 1rem;
+      display: flex;
+      align-items: flex-start;
+      gap: 0.7rem;
     }
 
-    a {
-      color: #0066cc;
+    .contact-item i, .skill-item i {
+      color: var(--accent);
+      font-size: 1rem;
+      margin-top: 0.2rem;
+    }
+
+    .contact-link {
+      color: var(--text-light);
       text-decoration: none;
+      transition: color var(--transition);
+      font-size: 0.92rem;
+      display: inline-block;
+      position: relative;
+      line-height: 1.5;
     }
 
-    a:hover {
-      text-decoration: underline;
+    .contact-link:hover {
+      color: var(--accent);
+    }
+
+    .contact-link::after {
+      content: '';
+      position: absolute;
+      bottom: -2px;
+      left: 0;
+      width: 0;
+      height: 1px;
+      background: var(--accent);
+      transition: width var(--transition);
+    }
+
+    .contact-link:hover::after {
+      width: 100%;
+    }
+
+    .skill-name {
+      font-size: 0.92rem;
+      margin-bottom: 0.3rem;
+    }
+
+    .skill-bar {
+      height: 5px;
+      background: rgba(100, 255, 218, 0.1);
+      border-radius: 3px;
+      margin-top: 0.5rem;
+      overflow: hidden;
+    }
+
+    .skill-progress {
+      height: 100%;
+      background: var(--accent);
+      border-radius: 3px;
+    }
+
+    /* Main Content Styles */
+    main {
+      padding: 3.5rem;
+      overflow-x: hidden;
     }
 
     .section {
-      margin-bottom: 40px;
+      margin-bottom: 3rem;
+      opacity: 0;
+      transform: translateY(20px);
+      animation: fadeIn 0.8s forwards;
+      background: var(--card-bg);
+      border-radius: var(--border-radius);
+      padding: 2.2rem;
+      box-shadow: var(--shadow-sm);
+      transition: all var(--transition);
+      border-left: 3px solid transparent;
     }
 
-    footer {
+    .section:hover {
+      transform: translateY(-5px);
+      box-shadow: var(--shadow-md);
+      border-left-color: var(--accent);
+    }
+
+    .section:nth-child(1) { animation-delay: 0.1s; }
+    .section:nth-child(2) { animation-delay: 0.2s; }
+    .section:nth-child(3) { animation-delay: 0.3s; }
+    .section:nth-child(4) { animation-delay: 0.4s; }
+    .section:nth-child(5) { animation-delay: 0.5s; }
+    .section:nth-child(6) { animation-delay: 0.6s; }
+    .section:nth-child(7) { animation-delay: 0.7s; }
+
+    @keyframes fadeIn {
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .section-header {
+      margin-bottom: 1.8rem;
+      position: relative;
+      padding-bottom: 0.8rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+    }
+
+    .section-header::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 60px;
+      height: 3px;
+      background: var(--accent);
+      border-radius: 3px;
+    }
+
+    .section-title-main {
+      font-size: 1.6rem;
+      font-weight: 700;
+      color: var(--text-dark);
+      letter-spacing: 0.5px;
+    }
+
+    .section-subtitle {
+      font-size: 1.05rem;
+      color: var(--text-muted);
+      font-weight: 400;
+      margin-top: 0.4rem;
+    }
+
+    .profile-text p {
+      margin-bottom: 1.2rem;
+      font-size: 0.97rem;
+      line-height: 1.7;
+    }
+
+    .highlight {
+      color: var(--accent-dark);
+      font-weight: 500;
+    }
+
+    /* INF.02 Qualification Section */
+    .qualification-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 1.5rem;
+      margin-top: 1.5rem;
+    }
+
+    .qualification-card {
+      background: rgba(100, 255, 218, 0.05);
+      border: 1px solid rgba(100, 255, 218, 0.1);
+      border-radius: var(--border-radius);
+      padding: 1.5rem;
+      transition: all var(--transition);
+    }
+
+    .qualification-card:hover {
+      transform: translateY(-5px);
+      box-shadow: var(--shadow-sm);
+      border-color: var(--accent);
+    }
+
+    .qualification-title {
+      font-size: 1.1rem;
+      font-weight: 600;
+      margin-bottom: 0.8rem;
+      color: var(--accent-dark);
+      display: flex;
+      align-items: center;
+      gap: 0.7rem;
+    }
+
+    .qualification-title i {
+      font-size: 1.2rem;
+    }
+
+    .qualification-list {
+      padding-left: 1.5rem;
+      color: var(--text-muted);
+    }
+
+    .qualification-list li {
+      margin-bottom: 0.5rem;
+      position: relative;
+    }
+
+    .qualification-list li::before {
+      content: '▹';
+      position: absolute;
+      left: -1.2rem;
+      color: var(--accent);
+    }
+
+    /* Timeline Styles */
+    .timeline {
+      list-style: none;
+      position: relative;
+      padding-left: 2.2rem;
+    }
+
+    .timeline::before {
+      content: '';
+      position: absolute;
+      left: 8px;
+      top: 5px;
+      bottom: 5px;
+      width: 2px;
+      background: var(--accent);
+      border-radius: 2px;
+    }
+
+    .timeline-item {
+      margin-bottom: 2rem;
+      position: relative;
+      padding-left: 1.8rem;
+    }
+
+    .timeline-item:last-child {
+      margin-bottom: 0;
+    }
+
+    .timeline-item::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 6px;
+      width: 16px;
+      height: 16px;
+      background: var(--accent);
+      border-radius: 50%;
+      border: 3px solid var(--card-bg);
+      z-index: 1;
+      box-shadow: 0 0 0 2px var(--accent);
+    }
+
+    .timeline-date {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      margin-bottom: 0.4rem;
+      display: inline-block;
+      background: rgba(100, 255, 218, 0.1);
+      padding: 0.3rem 0.8rem;
+      border-radius: 15px;
+      font-weight: 500;
+    }
+
+    .timeline-title {
+      font-weight: 600;
+      font-size: 1.1rem;
+      margin-bottom: 0.6rem;
+      color: var(--text-dark);
+    }
+
+    .timeline-company {
+      color: var(--accent-dark);
+      font-weight: 500;
+    }
+
+    .timeline-description {
+      font-size: 0.93rem;
+      color: var(--text-muted);
+      margin-bottom: 0.6rem;
+      line-height: 1.6;
+    }
+
+    .timeline-responsibilities {
+      margin: 0.8rem 0 0 1.5rem;
+      color: var(--text-muted);
+      font-size: 0.93rem;
+    }
+
+    .timeline-responsibilities li {
+      margin-bottom: 0.5rem;
+      position: relative;
+      list-style-type: none;
+    }
+
+    .timeline-responsibilities li::before {
+      content: '▹';
+      position: absolute;
+      left: -1.5rem;
+      color: var(--accent);
+    }
+
+    .timeline-tech {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.6rem;
+      margin-top: 0.8rem;
+    }
+
+    .tech-tag {
+      background: rgba(100, 255, 218, 0.1);
+      color: var(--accent-dark);
+      font-size: 0.75rem;
+      padding: 0.3rem 0.8rem;
+      border-radius: 15px;
+      font-family: 'Courier New', monospace;
+      font-weight: 500;
+      letter-spacing: 0.5px;
+    }
+
+    /* Certificates Styles */
+    .certificates-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+      gap: 1.8rem;
+      margin-top: 1.5rem;
+    }
+
+    .certificate-card {
+      border-radius: var(--border-radius);
+      overflow: hidden;
+      box-shadow: var(--shadow-sm);
+      transition: all var(--transition);
+      position: relative;
+      aspect-ratio: 1.414 / 1;
+      border: 1px solid rgba(100, 255, 218, 0.1);
+    }
+
+    .certificate-card:hover {
+      transform: translateY(-7px);
+      box-shadow: var(--shadow-lg);
+      border-color: rgba(100, 255, 218, 0.3);
+    }
+
+    .certificate-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      background: linear-gradient(45deg, #0a192f, #1e3a5f);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--accent);
+      font-size: 3rem;
+    }
+
+    .certificate-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(10, 25, 47, 0.9);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      transition: opacity var(--transition);
+      padding: 1.5rem;
       text-align: center;
-      padding: 20px;
-      background: #1f2937;
-      color: #fff;
-      margin-top: 40px;
     }
 
-    img {
-      max-width: 100%;
-      height: auto;
-      margin: 10px 0;
-      border: 2px solid #ccc;
+    .certificate-card:hover .certificate-overlay {
+      opacity: 1;
+    }
+
+    .certificate-name {
+      color: var(--accent);
+      font-size: 1rem;
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+    }
+
+    .certificate-date {
+      color: var(--text-light);
+      font-size: 0.85rem;
+      margin-bottom: 1rem;
+    }
+
+    .certificate-issuer {
+      color: var(--text-muted);
+      font-size: 0.8rem;
+      font-style: italic;
+    }
+
+    /* Progress Bars */
+    .progress-container {
+      margin-top: 1.5rem;
+    }
+
+    .progress-item {
+      margin-bottom: 1.5rem;
+    }
+
+    .progress-info {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 0.5rem;
+    }
+
+    .progress-label {
+      font-size: 0.95rem;
+      font-weight: 500;
+      color: var(--text-dark);
+    }
+
+    .progress-percent {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      font-weight: 500;
+    }
+
+    .progress-bar {
+      height: 7px;
+      background: rgba(100, 255, 218, 0.1);
+      border-radius: 4px;
+      overflow: hidden;
+    }
+
+    .progress-fill {
+      height: 100%;
+      background: var(--accent);
+      border-radius: 4px;
+      width: 0;
+      transition: width 1.5s ease-out;
+    }
+
+    /* Button Styles */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.7rem 1.4rem;
+      background: var(--accent);
+      color: var(--bg-primary);
+      border: none;
+      border-radius: 30px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all var(--transition);
+      text-decoration: none;
+      margin-top: 0.8rem;
+      box-shadow: 0 2px 5px rgba(100, 255, 218, 0.3);
+    }
+
+    .btn:hover {
+      background: var(--accent-dark);
+      transform: translateY(-3px);
+      box-shadow: 0 5px 15px rgba(100, 255, 218, 0.4);
+    }
+
+    .btn i {
+      font-size: 0.9rem;
+    }
+
+    .btn-outline {
+      background: transparent;
+      border: 1px solid var(--accent);
+      color: var(--accent);
+      box-shadow: none;
+    }
+
+    .btn-outline:hover {
+      background: var(--accent);
+      color: var(--bg-primary);
+    }
+
+    /* Rating Styles */
+    .rating {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.3rem;
+      margin-top: 0.5rem;
+    }
+
+    .rating-stars {
+      color: var(--accent);
+      font-size: 0.9rem;
+    }
+
+    .rating-text {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      font-weight: 500;
+    }
+
+    /* Responsive Design */
+    @media (max-width: 992px) {
+      body {
+        grid-template-columns: 1fr;
+      }
+
+      aside {
+        position: static;
+        height: auto;
+        padding: 2.5rem 1.5rem;
+      }
+
+      main {
+        padding: 2.5rem 1.5rem;
+      }
+
+      .certificates-container {
+        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      }
+    }
+
+    @media (max-width: 576px) {
+      .certificates-container, .qualification-grid {
+        grid-template-columns: 1fr;
+      }
+      
+      .section {
+        padding: 1.8rem 1.5rem;
+      }
+    }
+
+    /* Print Styles */
+    @media print {
+      body {
+        grid-template-columns: 1fr;
+        background: white;
+        color: black;
+        font-size: 12pt;
+      }
+
+      aside {
+        background: white;
+        color: black;
+        position: static;
+        height: auto;
+      }
+
+      .profile-img {
+        border-color: black;
+      }
+
+      .contact-link, .section-title-main {
+        color: black;
+      }
+
+      .section {
+        box-shadow: none;
+        break-inside: avoid;
+        page-break-inside: avoid;
+      }
+      
+      .highlight {
+        color: black;
+        font-weight: 600;
+      }
+      
+      .btn {
+        display: none;
+      }
+      
+      .rating-stars {
+        color: black;
+      }
+    }
+    
+    /* Animation for progress bars */
+    @keyframes fillProgress {
+      from { width: 0; }
+      to { width: var(--progress-width); }
+    }
+    
+    .progress-fill {
+      animation: fillProgress 1.5s ease-out forwards;
+    }
+    
+    /* Section counter */
+    .section-counter {
+      color: var(--text-muted);
+      font-size: 0.9rem;
+      font-weight: 500;
     }
   </style>
 </head>
 <body>
+  <aside>
+    <div class="profile-container">
+      <div class="profile-img">
+        <i class="fas fa-user"></i>
+      </div>
+      <h1 class="profile-name">Kacper Mazur</h1>
+      <p class="profile-subtitle">Technik Informatyk</p>
+      <div class="qualification-badge">Kwalifikacja INF.02</div>
+    </div>
 
-  <header>
-    <h1>Kacper Mazur</h1>
-    <p>Uczeń klasy 3 | Zaawansowany użytkownik serwerów</p>
-  </header>
-
-  <div class="container">
-
-    <section class="section">
-      <h2>O mnie</h2>
-      <p>Nazywam się Kacper Mazur. Jestem uczniem klasy 3 technikum i pasjonuję się technologiami IT – w szczególności administracją serwerów, sieciami komputerowymi oraz programowaniem. Regularnie poszerzam swoje umiejętności poprzez kursy i praktykę.</p>
-    </section>
-
-    <section class="section">
-      <h2>Umiejętności</h2>
-      <ul>
-        <li>Administracja serwerami (Linux, Windows Server)</li>
-        <li>Sieci komputerowe (Cisco CCNA)</li>
-        <li>Podstawy AI i Cyberbezpieczeństwa</li>
-        <li>HTML, JavaScript, Python</li>
+    <div class="sidebar-section">
+      <h3 class="section-title"><i class="fas fa-id-card"></i> Kontakt</h3>
+      <ul class="contact-list">
+        <li class="contact-item">
+          <i class="fas fa-envelope"></i>
+          <a href="mailto:kacpermazur082@gmail.com" class="contact-link">kacpermazur082@gmail.com</a>
+        </li>
+        <li class="contact-item">
+          <i class="fas fa-phone-alt"></i>
+          <a href="tel:+48727940157" class="contact-link">+48 727 940 157</a>
+        </li>
+        <li class="contact-item">
+          <i class="fab fa-github"></i>
+          <a href="https://github.com/Kacper4231874" target="_blank" class="contact-link">github.com/Kacper4231874</a>
+        </li>
+        <li class="contact-item">
+          <i class="fas fa-map-marker-alt"></i>
+          <span class="contact-link">Poznań, Polska</span>
+        </li>
       </ul>
-    </section>
+    </div>
 
-    <section class="section">
-	<img src="cf205cf3-d6cb-4cc5-be2b-1b237e9a8988.png" alt="ICP Blockchain Certificate">
-	<a href="cf205cf3-d6cb-4cc5-be2b-1b237e9a8988.png" target="_blank">
-  <img src="cf205cf3-d6cb-4cc5-be2b-1b237e9a8988.png" alt="ICP Blockchain Certificate">
-</a>
-
- 
-      <p><strong>Cisco Networking Academy – Różne kursy</strong></p>
-      <ul>
-        <li><a href="https://www.netacad.com/certificates?issuanceId=5461fb44-dbe7-4dd2-86f6-102806ccd258" target="_blank">Cisco Certyfikat 1</a></li>
-        <li><a href="https://www.netacad.com/certificates?issuanceId=cb06e554-a809-4788-8080-f57f34fd9453" target="_blank">Cisco Certyfikat 2</a></li>
-        <li><a href="https://www.netacad.com/certificates?issuanceId=b762688c-e9b9-4f63-9205-bfeb9f1fca30" target="_blank">Cisco Certyfikat 3</a></li>
-        <li><a href="https://www.netacad.com/certificates?issuanceId=4e89c7cc-506b-419f-a861-ac9bdd52902a" target="_blank">Cisco Certyfikat 4</a></li>
-        <li><a href="https://www.netacad.com/certificates?issuanceId=caab40b0-9564-4610-8302-c1f348ae1f21" target="_blank">Cisco Certyfikat 5</a></li>
-        <li><a href="https://www.netacad.com/certificates?issuanceId=e79bed29-419c-4663-aa89-77ce50de175a" target="_blank">Cisco Certyfikat 6</a></li>
-        <li><a href="https://www.netacad.com/certificates?issuanceId=1f094d8a-f649-4435-b47a-1dd35e90a954" target="_blank">Cisco Certyfikat 7</a></li>
-        <li><a href="https://www.netacad.com/certificates?issuanceId=086c48fb-5584-4cfb-a08c-195100e3db8b" target="_blank">Cisco Certyfikat 8</a></li>
-        <li><a href="https://www.netacad.com/certificates?issuanceId=6e5062fc-650d-49e4-b77f-a6439f751894" target="_blank">Cisco Certyfikat 9</a></li>
-        <li><a href="https://www.netacad.com/certificates?issuanceId=fd86dd8f-2eb9-4b67-b030-23681426d40e" target="_blank">Cisco Certyfikat 10</a></li>
+    <div class="sidebar-section">
+      <h3 class="section-title"><i class="fas fa-code"></i> Umiejętności</h3>
+      <ul class="skills-list">
+        <li class="skill-item">
+          <div>
+            <div class="skill-name">Administracja systemami</div>
+            <div class="skill-bar">
+              <div class="skill-progress" style="width: 90%"></div>
+            </div>
+          </div>
+        </li>
+        <li class="skill-item">
+          <div>
+            <div class="skill-name">Sieci komputerowe (CCNA)</div>
+            <div class="skill-bar">
+              <div class="skill-progress" style="width: 85%"></div>
+            </div>
+          </div>
+        </li>
+        <li class="skill-item">
+          <div>
+            <div class="skill-name">Wsparcie techniczne</div>
+            <div class="skill-bar">
+              <div class="skill-progress" style="width: 85%"></div>
+            </div>
+          </div>
+        </li>
+        <li class="skill-item">
+          <div>
+            <div class="skill-name">HTML/CSS/JavaScript (podstawy)</div>
+            <div class="skill-bar">
+              <div class="skill-progress" style="width: 75%"></div>
+            </div>
+          </div>
+        </li>
+        <li class="skill-item">
+          <div>
+            <div class="skill-name">Python (Podstawy)</div>
+            <div class="skill-bar">
+              <div class="skill-progress" style="width: 50%"></div>
+            </div>
+          </div>
+        </li>
+        <li class="skill-item">
+          <div>
+            <div class="skill-name">C++ (Podstawy)</div>
+            <div class="skill-bar">
+              <div class="skill-progress" style="width: 60%"></div>
+            </div>
+          </div>
+        </li>
       </ul>
+    </div>
+
+    <div class="sidebar-section">
+      <h3 class="section-title"><i class="fas fa-language"></i> Języki</h3>
+      <ul class="skills-list">
+        <li class="skill-item">
+          <div>
+            <div class="skill-name">Polski (ojczysty)</div>
+            <div class="skill-bar">
+              <div class="skill-progress" style="width: 100%"></div>
+            </div>
+          </div>
+        </li>
+        <li class="skill-item">
+          <div>
+            <div class="skill-name">Angielski (B2)</div>
+            <div class="skill-bar">
+              <div class="skill-progress" style="width: 70%"></div>
+            </div>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </aside>
+
+  <main>
+    <section class="section">
+      <div class="section-header">
+        <div>
+          <h2 class="section-title-main">O mnie</h2>
+          <p class="section-subtitle">Technik informatyk z pasją do nowych technologii, działam stricte z ponadczasowymi urządzeniami ai</p>
+        </div>
+        <span class="section-counter">01</span>
+      </div>
+      <div class="profile-text">
+        <p>Jestem absolwentem <span class="highlight">Technikum Informatycznego</span> z praktycznym doświadczeniem zdobytym podczas praktyk w firmie Forcom. Posiadam kwalifikację <span class="highlight">INF.02</span> - "Administracja i eksploatacja systemów komputerowych, urządzeń peryferyjnych i lokalnych sieci komputerowych".</p>
+        <p>Specjalizuję się w administracji systemów, konfiguracji sieci komputerowych oraz wsparciu technicznym użytkowników. Moje projekty obejmują wdrażanie rozwiązań serwerowych, tworzenie systemów logowania oraz automatyzację zadań administracyjnych.</p>
+        <p>Posiadam certyfikaty <span class="highlight">Cisco CCNA</span> potwierdzające moją wiedzę z zakresu sieci komputerowych. W pracy cenię sobie dokładność, samodzielność i umiejętność rozwiązywania problemów. Moim celem jest rozwój w obszarze <span class="highlight">cyberbezpieczeństwa</span> i administracji systemami.</p>
+      </div>
     </section>
 
     <section class="section">
-      <h2>Ciekawe projekty</h2>
-      <ul>
-        <li><strong>strona</strong> –
-          <a href="file:///C:/Users/48727/Desktop/logowanie.html#" target="_blank">Zobacz projekt</a>
+      <div class="section-header">
+        <div>
+          <h2 class="section-title-main">Kwalifikacja INF.02</h2>
+          <p class="section-subtitle">Administracja i eksploatacja systemów komputerowych, urządzeń peryferyjnych i lokalnych sieci komputerowych</p>
+        </div>
+        <span class="section-counter">02</span>
+      </div>
+      <div class="qualification-grid">
+        <div class="qualification-card">
+          <h3 class="qualification-title"><i class="fas fa-server"></i> Administracja Systemów</h3>
+          <ul class="qualification-list">
+            <li>Konfiguracja systemów operacyjnych (Windows, Linux)</li>
+            <li>Zarządzanie użytkownikami i uprawnieniami</li>
+            <li>Monitorowanie wydajności systemów</li>
+            <li>Automatyzacja zadań administracyjnych</li>
+            <li>Zarządzanie aktualizacjami i poprawkami</li>
+          </ul>
+        </div>
+        
+        <div class="qualification-card">
+          <h3 class="qualification-title"><i class="fas fa-network-wired"></i> Sieci Komputerowe</h3>
+          <ul class="qualification-list">
+            <li>Projektowanie i konfiguracja sieci LAN</li>
+            <li>Zarządzanie urządzeniami sieciowymi (routers, switches)</li>
+            <li>Konfiguracja protokołów sieciowych (TCP/IP, DHCP, DNS)</li>
+            <li>Diagnostyka i rozwiązywanie problemów sieciowych</li>
+            <li>Bezpieczeństwo sieci i konfiguracja firewalli</li>
+          </ul>
+        </div>
+        
+        <div class="qualification-card">
+          <h3 class="qualification-title"><i class="fas fa-hdd"></i> Urządzenia Peryferyjne</h3>
+          <ul class="qualification-list">
+            <li>Instalacja i konfiguracja drukarek, skanerów</li>
+            <li>Rozwiązywanie problemów ze sprzętem</li>
+            <li>Zarządzanie urządzeniami pamięci masowej</li>
+            <li>Optymalizacja wydajności urządzeń</li>
+            <li>Integracja urządzeń z systemami operacyjnymi</li>
+          </ul>
+        </div>
+        
+        <div class="qualification-card">
+          <h3 class="qualification-title"><i class="fas fa-shield-alt"></i> Bezpieczeństwo IT</h3>
+          <ul class="qualification-list">
+            <li>Wdrażanie polityk bezpieczeństwa</li>
+            <li>Zarządzanie kopiami zapasowymi</li>
+            <li>Ochrona przed zagrożeniami sieciowymi</li>
+            <li>Monitorowanie i analiza logów</li>
+            <li>Zarządzanie uwierzytelnianiem i dostępem</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-header">
+        <div>
+          <h2 class="section-title-main">Doświadczenie</h2>
+          <p class="section-subtitle">Praktyka zawodowa i projekty</p>
+        </div>
+        <span class="section-counter">03</span>
+      </div>
+      <ul class="timeline">
+        <li class="timeline-item">
+          <span class="timeline-date">Luty 2025</span>
+          <h3 class="timeline-title">Praktykant IT <span class="timeline-company">• Forcom Sp. z o.o.</span></h3>
+          <p class="timeline-description">
+            Ukończenie z dyplomem miesięcznych  praktyk w poznańskiej firmie IT, podczas których zdobywałem praktyczne umiejętności w następujących obszarach:
+          </p>
+          <ul class="timeline-responsibilities">
+            <li>Konfiguracja i serwis sprzętu komputerowego</li>
+            <li>Diagnostyka i naprawy urządzeń IT</li>
+            <li>Produkcja i konfiguracja weryfikatorów cen</li>
+            <li>Obsługa help-desk i wsparcie techniczne użytkowników</li>
+            <li>Tworzenie i zarządzanie kopiami zapasowymi danych</li>
+            <li>Konfiguracja instalacji elektrycznych i sieci LAN</li>
+            <li>Udział w projektach IT</li>
+          </ul>
+          <div class="rating">
+            <div class="rating-stars">
+              <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+            </div>
+            <span class="rating-text">Ocena: Bardzo dobry</span>
+          </div>
+          <div class="timeline-tech">
+            <span class="tech-tag">Help Desk</span>
+            <span class="tech-tag">Konfiguracja sprzętu</span>
+            <span class="tech-tag">Sieci LAN</span>
+            <span class="tech-tag">Backup danych</span>
+          </div>
+        </li>
+        <li class="timeline-item">
+          <span class="timeline-date">2025</span>
+          <h3 class="timeline-title">System logowania z autentykacją</h3>
+          <p class="timeline-description">Pełnofunkcyjny system logowania z walidacją danych, szyfrowaniem haseł i responsywnym interfejsem użytkownika. System implementuje najlepsze praktyki bezpieczeństwa.</p>
+          <div class="timeline-tech">
+            <span class="tech-tag">HTML5</span>
+            <span class="tech-tag">CSS3</span>
+            <span class="tech-tag">JavaScript</span>
+            <span class="tech-tag">PHP</span>
+          </div>
+          <a href="logowanie.html" target="_blank" class="btn btn-outline">
+            <i class="fas fa-external-link-alt"></i> Zobacz projekt
+          </a>
+        </li>
+        <li class="timeline-item">
+          <span class="timeline-date">2025</span>
+          <h3 class="timeline-title">Serwer NAS z automatycznym backupem</h3>
+          <p class="timeline-description">Konfiguracja wydajnego serwera plików z macierzą RAID 1, automatycznymi skryptami backupu (rsync) i bezpiecznym zdalnym dostępem poprzez OpenVPN.</p>
+          <div class="timeline-tech">
+            <span class="tech-tag">Ubuntu Server</span>
+            <span class="tech-tag">Bash</span>
+            <span class="tech-tag">rsync</span>
+            <span class="tech-tag">OpenVPN</span>
+          </div>
         </li>
       </ul>
     </section>
 
     <section class="section">
-      <h2>Kontakt</h2>
-      <p>Email: <a href="mailto:twoj.email@example.com">kacpermazur082@gmail.com</a></p>
-      <p>GitHub: <a href="https://github.com/twojnick" target="_blank">github.com/Kacper4231874</a></p>
+      <div class="section-header">
+        <div>
+          <h2 class="section-title-main">Certyfikaty</h2>
+          <p class="section-subtitle">Potwierdzone kwalifikacje i szkolenia</p>
+        </div>
+        <span class="section-counter">04</span>
+      </div>
+      <div class="certificates-container">
+        <a href="https://docs.google.com/presentation/d/14Sm2aoVC5oTi1MFrvgme5zpa9pY3PHnv3jpL0D0xh1c/edit?slide=id.p#slide=id.p" target="_blank" class="certificate-card">
+          <div class="certificate-img">
+            <i class="fas fa-award"></i>
+          </div>
+          <div class="certificate-overlay">
+            <h3 class="certificate-name">ICP Blockchain Fundamentals</h3>
+            <p class="certificate-date">2023</p>
+            <p class="certificate-issuer">Internet Computer Protocol</p>
+          </div>
+        </a>
+        
+        <a href="https://docs.google.com/presentation/d/1n-1Gi1X1uNapvFmGwBMEj5iPuGwG-4b2uQgA87VmztU/edit?slide=id.p#slide=id.p" target="_blank" class="certificate-card">
+          <div class="certificate-img">
+            <i class="fas fa-network-wired"></i>
+          </div>
+          <div class="certificate-overlay">
+            <h3 class="certificate-name">CCNA: Switching, Routing, and Wireless Essentials</h3>
+            <p class="certificate-date">2023</p>
+            <p class="certificate-issuer">Cisco Networking Academy</p>
+          </div>
+        </a>
+        
+        <a href="https://docs.google.com/presentation/d/1Nu-yNdKuFaW0IUYrY1IkCc7bUwq9pnCu-xoNJrlL6QY/edit?slide=id.p#slide=id.p" target="_blank" class="certificate-card">
+          <div class="certificate-img">
+            <i class="fas fa-laptop-code"></i>
+          </div>
+          <div class="certificate-overlay">
+            <h3 class="certificate-name">CCNA: Introduction to Networks</h3>
+            <p class="certificate-date">2022</p>
+            <p class="certificate-issuer">Cisco Networking Academy</p>
+          </div>
+        </a>
+        
+        <a href="#" target="_blank" class="certificate-card">
+          <div class="certificate-img">
+            <i class="fas fa-certificate"></i>
+          </div>
+          <div class="certificate-overlay">
+            <h3 class="certificate-name">Kwalifikacja INF.02</h3>
+            <p class="certificate-date">2025</p>
+            <p class="certificate-issuer">Ośrodek Egzaminacyjny</p>
+          </div>
+        </a>
+      </div>
+      <a href="#" class="btn">
+        <i class="fas fa-certificate"></i> Zobacz wszystkie certyfikaty
+      </a>
     </section>
 
-  </div>
+    <section class="section">
+      <div class="section-header">
+        <div>
+          <h2 class="section-title-main">Edukacja</h2>
+          <p class="section-subtitle">Ścieżka kształcenia i rozwój</p>
+        </div>
+        <span class="section-counter">05</span>
+      </div>
+      <ul class="timeline">
+        <li class="timeline-item">
+          <span class="timeline-date">5 lat nauki w szkole informatycznej technikum nr.19</span>
+          <h3 class="timeline-title">Technikum Informatyczne</h3>
+          <p class="timeline-description">Ukończyłem technikum o specjalizacji informatycznej.Obejmował zaawansowane zagadnienia z zakresu sieci komputerowych, systemów operacyjnych, baz danych i programowania.</p>
+          <div class="timeline-tech">
+            <span class="tech-tag">Sieci komputerowe</span>
+            <span class="tech-tag">Systemy operacyjne</span>
+            <span class="tech-tag">Bazy danych</span>
+            <span class="tech-tag">Programowanie</span>
+            <span class="tech-tag">INF.02</span>
+          </div>
+        </li>
+      </ul>
+    </section>
 
-  <footer>
-     2025 Kacper Mazur. Wszystkie prawa zastrzeżone.
-  </footer>
+    <section class="section">
+      <div class="section-header">
+        <div>
+          <h2 class="section-title-main">Technologie</h2>
+          <p class="section-subtitle">Narzędzia i technologie, które znam</p>
+        </div>
+        <span class="section-counter">06</span>
+      </div>
+      <div class="progress-container">
+        <div class="progress-item">
+          <div class="progress-info">
+            <span class="progress-label">Administracja systemami</span>
+            <span class="progress-percent">90%</span>
+          </div>
+          <div class="progress-bar">
+            <div class="progress-fill" style="--progress-width: 90%"></div>
+          </div>
+        </div>
+        <div class="progress-item">
+          <div class="progress-info">
+            <span class="progress-label">Sieci komputerowe (CCNA)</span>
+            <span class="progress-percent">85%</span>
+          </div>
+          <div class="progress-bar">
+            <div class="progress-fill" style="--progress-width: 85%"></div>
+          </div>
+        </div>
+        <div class="progress-item">
+          <div class="progress-info">
+            <span class="progress-label">Wsparcie techniczne</span>
+            <span class="progress-percent">60%</span>
+          </div>
+          <div class="progress-bar">
+            <div class="progress-fill" style="--progress-width: 60%"></div>
+          </div>
+        </div>
+        <div class="progress-item">
+          <div class="progress-info">
+            <span class="progress-label">HTML/CSS/JavaScript</span>
+            <span class="progress-percent">60%</span>
+          </div>
+          <div class="progress-bar">
+            <div class="progress-fill" style="--progress-width: 60%"></div>
+          </div>
+        </div>
+        <div class="progress-item">
+          <div class="progress-info">
+            <span class="progress-label">Python (Podstawy)</span>
+            <span class="progress-percent">50%</span>
+          </div>
+          <div class="progress-bar">
+            <div class="progress-fill" style="--progress-width: 50%"></div>
+          </div>
+        </div>
+        <div class="progress-item">
+          <div class="progress-info">
+            <span class="progress-label">C++ (Podstawy)</span>
+            <span class="progress-percent">60%</span>
+          </div>
+          <div class="progress-bar">
+            <div class="progress-fill" style="--progress-width: 60%"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+    
+    <section class="section">
+      <div class="section-header">
+        <div>
+          <h2 class="section-title-main">Projekty INF.02</h2>
+          <p class="section-subtitle">Realizacja zadań kwalifikacyjnych</p>
+        </div>
+        <span class="section-counter">07</span>
+      </div>
+      <ul class="timeline">
+        <li class="timeline-item">
+          <span class="timeline-date">2025</span>
+          <h3 class="timeline-title">Konfiguracja sieci LAN i Administracja systemami operacyjnymi.</h3>
+          <p class="timeline-description">Projektowanie i wdrażanie infrastruktury sieciowej: Tworzenie adresacji IP, definiowanie podsieci oraz konfiguracja VLAN-ów w celu segmentacji ruchu sieciowego.
 
+		Konfiguracja urządzeń sieciowych: Praktyczna obsługa przełączników (switchy) i routerów (głównie w środowisku Cisco), w tym konfiguracja interfejsów, routing, listy ACL (Access Control Lists) oraz podstawowych zabezpieczeń firewall.
+
+		Kontrola dostępu: Implementacja mechanizmów uwierzytelniania i autoryzacji użytkowników oraz urządzeń w sieci.
+
+		Instalacja i administracja serwerami: Instalacja, konfiguracja podstawowa i zarządzanie systemami operacyjnymi serwerowymi, takimi jak Windows Server oraz Ubuntu Server.
+
+		Zarządzanie usługami sieciowymi: Konfiguracja, optymalizacja i utrzymanie kluczowych usług, w tym:
+
+		DHCP: Automatyczne przydzielanie adresów IP klientom.
+
+		DNS: Rozwiązywanie nazw domenowych na adresy IP i odwrotnie.
+
+		FTP: Udostępnianie plików w sieci.
+
+		WWW: Hostowanie stron i aplikacji internetowych.
+
+		Zarządzanie tożsamością: Tworzenie kont użytkowników i grup, przypisywanie uprawnień oraz zarządzanie zasobami w środowiskach takich jak Active Directory (Windows) czy OpenLDAP/Kerberos (Linux).
+
+		Kluczowe technologie: Cisco Packet Tracer / IOS, Active Directory, Ubuntu Server (w tym usługi jak Bind9, ISC DHCP, Apache2/Nginx, vsftpd), Zapory sieciowe (Firewall - np. Windows Firewall, UFW, iptables/nftables).
+
+</p>
+          <div class="timeline-tech">
+            <span class="tech-tag">Cisco</span>
+            <span class="tech-tag">Active Directory</span>
+            <span class="tech-tag">Ubuntu Server</span>
+            <span class="tech-tag">Firewall</span>
+          </div>
+        </li>
+        <li class="timeline-item">
+          <span class="timeline-date">2025</span>
+          <h3 class="timeline-title">Wirtualizacja i projekty złożone</h3>
+          <p class="timeline-description">Konfiguracja środowisk wirtualnych: 
+		  Instalacja, konfiguracja i zarządzanie maszynami wirtualnymi (VM) oraz sieciami wirtualnymi łączącymi te maszyny. Pozwala to na symulację złożonych topologii bez konieczności posiadania fizycznego sprzętu.
+
+		  Realizacja kompleksowych projektów: Wykorzystanie wirtualizacji do budowy i testowania całych środowisk, takich jak:
+
+          Sieć firmowa z VLAN-ami: Projektowanie i wdrażanie segmentowanej sieci przedsiębiorstwa z różnymi wydziałami (VLANy) oraz odpowiednimi regułami routingu i bezpieczeństwa między nimi.
+
+          Serwer plików z zaawansowaną kontrolą dostępu: Konfiguracja serwera plików (np. Windows File Server lub Samba na Linux) z precyzyjnym przypisywaniem uprawnień dla użytkowników i grup na poziomie folderów i plików.
+
+          Strategie backupu danych: Projektowanie i implementacja rozwiązań do regularnego tworzenia i weryfikacji kopii zapasowych krytycznych danych z serwerów.
+
+          Kluczowe technologie: Platformy wirtualizacyjne - VirtualBox, VMware (np. Workstation Player/Pro, ESXi), Symulacja sieci (np. Cisco Packet Tracer - SNUP).
+
+</p>
+          <div class="timeline-tech">
+            <span class="tech-tag">VirtualBox</span>
+            <span class="tech-tag">SNMP</span>
+            <span class="tech-tag">VMware</span>
+            
+          </div>
+        </li>
+      </ul>
+    </section>
+  </main>
+
+  <script>
+    // Animate progress bars when they come into view
+    document.addEventListener('DOMContentLoaded', function() {
+      const progressItems = document.querySelectorAll('.progress-item');
+      
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            const progressFill = entry.target.querySelector('.progress-fill');
+            progressFill.style.animation = 'fillProgress 1.5s ease-out forwards';
+            observer.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.5 });
+      
+      progressItems.forEach(item => {
+        observer.observe(item);
+      });
+    });
+  </script>
 </body>
 </html>
